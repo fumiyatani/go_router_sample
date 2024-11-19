@@ -1,17 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'qiita_item.freezed.dart'; // freezedが生成するコード
-part 'qiita_item.g.dart'; // json_serializable用のコード
+part 'qiita_item_json.freezed.dart';
+part 'qiita_item_json.g.dart';
 
 @freezed
-class QiitaItem with _$QiitaItem {
-  const factory QiitaItem({
+class QiitaItemJson with _$QiitaItemJson {
+  const factory QiitaItemJson({
     required String id,
     required String title,
     @JsonKey(name: 'likes_count') required int likesCount,
-  }) = _QiitaItem;
+  }) = _QiitaItemJson;
 
   // JSON 変換のサポートを追加（必要に応じて）
-  factory QiitaItem.fromJson(Map<String, dynamic> json) =>
-      _$QiitaItemFromJson(json);
+  factory QiitaItemJson.fromJson(Map<String, dynamic> json) =>
+      _$QiitaItemJsonFromJson(json);
 }
