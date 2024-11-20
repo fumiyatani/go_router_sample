@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:go_router_sample/domain/qiita_item.dart';
-import 'package:go_router_sample/infra/json/qiita_item_json.dart';
-import 'package:go_router_sample/infra/qiita_uri.dart';
+import 'package:go_router_sample/data/json/qiita_item_json.dart';
+import 'package:go_router_sample/data/qiita_uri.dart';
 
 class ApiClient {
   ApiClient()
@@ -13,7 +12,7 @@ class ApiClient {
 
   final Dio _dio;
 
-  Future<List<QiitaItem>> getItems(int? page) async {
+  Future<List<QiitaItemJson>> getItems(int? page) async {
     final response = await _dio.get(
       qiitaItemsPath,
       queryParameters: <String, dynamic>{
@@ -22,12 +21,15 @@ class ApiClient {
     );
     final data = response.data as List<dynamic>;
     return data.map((item) {
-      final json = QiitaItemJson.fromJson(item);
-      return QiitaItem(
-        id: json.id,
-        title: json.title,
-        likesCount: json.likesCount,
-      );
+      return QiitaItemJson.fromJson(item);
     }).toList();
+  }
+
+  Future<QiitaItemJson> getItem(String id) async {
+    final response = await _dio.get(
+      qiitaItemPath,
+    );
+    final data = response.data as dynamic;
+    return QiitaItemJson.fromJson(data);
   }
 }
