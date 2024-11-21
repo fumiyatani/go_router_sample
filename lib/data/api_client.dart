@@ -12,12 +12,19 @@ class ApiClient {
 
   final Dio _dio;
 
-  Future<List<QiitaItemJson>> getItems(int? page) async {
+  Future<List<QiitaItemJson>> getItems(int? page, String? keyword) async {
+    final parameters = <String, dynamic>{
+      'page': page ?? 1,
+    };
+    if (keyword != null) {
+      parameters.addAll(<String, dynamic>{
+        'query': keyword,
+      });
+    }
+
     final response = await _dio.get(
       qiitaItemsPath,
-      queryParameters: <String, dynamic>{
-        'page': page ?? 1,
-      },
+      queryParameters: parameters,
     );
     final data = response.data as List<dynamic>;
     return data.map((item) {

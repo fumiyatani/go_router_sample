@@ -10,8 +10,8 @@ class QiitaItemRepositoryImpl implements QiitaItemRepository {
   final ApiClient _apiClient;
 
   @override
-  Future<List<QiitaItem>> getItems(int? page) {
-    final result = _apiClient.getItems(page);
+  Future<List<QiitaItem>> getItems(int? page, {String? keyword}) {
+    final result = _apiClient.getItems(page, keyword);
     return result.then((value) {
       return value
           .map((item) => QiitaItem(

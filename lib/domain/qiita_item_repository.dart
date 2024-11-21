@@ -6,7 +6,7 @@ final qiitaItemRepository = Provider<QiitaItemRepository>((ref) {
 });
 
 abstract interface class QiitaItemRepository {
-  Future<List<QiitaItem>> getItems(int? page);
+  Future<List<QiitaItem>> getItems(int? page, {String? keyword});
 
   Future<QiitaItem> getItem(String id);
 }
